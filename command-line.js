@@ -10,6 +10,9 @@ program
             'Use this option to specify a directory to compile.')
     .option('-o --out <dirname>',
             'If using the --dir option this specifies the output directory.')
+    .option('-g --glob <glob>',
+            'If using the --dir option, optionally specify the glob pattern to match for input files',
+            '**/*.js')
     .option('-i --ignore <glob>',
             'If using the --dir options this specifies to exclude eg. libs/**/*',
             function (value, memo) {
@@ -40,7 +43,7 @@ var inputFiles = program.args;
 
 if (program.dir) {
 
-    inputFiles = glob.sync('**/*.js', {
+    inputFiles = glob.sync(program.glob, {
         cwd: program.dir
     });
 
